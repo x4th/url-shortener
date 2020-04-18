@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URL Shortener</title>
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet"> 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #FFB619;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      font-family: 'Josefin Sans', sans-serif;
+    }
+
+    main {
+      width: 80%;
+      padding-top: 15vh;
+    }
+
+    form {
+      width: 100%;
+      display: flex;
+    }
+
+    input {
+      flex-grow: 1;
+      font-size: 2rem;
+      font-family: inherit;
+      border: none;
+      border-bottom: 1px solid black;
+    }
+
+    button {
+      font-size: 2rem;
+      font-family: inherit;
+      border: none;
+      border-left: 3px solid var(--primary-color);
+      background-color: transparent;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <form>
+      <input id="url" type="text" aria-label="URL" placeholder="Paste or Input URL">
+      <button id="submit" type="submit">Submit</button>
+    </form>
+    <div id="feedback"></div>
+    <div id="output"></div>
+  </main>
+  <script>
+    const feedback = document.getElementById('feedback')
+    const output = document.getElementById('output')
+
+    function checkInput(url) {
+      if (!url.startsWith('http')) {
+        url = 'http://' + url
+      }
+      const URLRegExp = /^https?:\/\/([\w\d\-]+\.)+\w{2,}(\/.+)?/
+      const result = URLRegExp.exec(url)
+      if (!result) {
+        feedback.textContent = `${url} is not a proper URL.`
+      } else {
+        feedback.textContent = 'success!'
+        output.textContent = 'https://test.com/short'
+      }
+    }
+
+    document.getElementById('submit').addEventListener('click', (event) => {
+      event.preventDefault()
+      checkInput(document.getElementById('url').value)
+    })
+  </script>
+</body>
+</html>
