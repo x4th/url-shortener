@@ -2,7 +2,6 @@ import fs from 'fs'
 import path from 'path'
 import dotenv from 'dotenv'
 import express from 'express'
-import cors from 'cors'
 import { json } from 'body-parser'
 import morgan from 'morgan'
 
@@ -19,15 +18,23 @@ import URLRouter from './resources/URL/URL.router'
 
 const app = express()
 
-app.use(cors())
 app.use(json())
-app.use(morgan('dev')) // TODO: change based on env
+app.use(
+  morgan('tiny', {
+    stream: {
+      write: (message: string) => {
+        logger.info(message.trim())
+      },
+    },
+  })
+)
 
 // register routers
 app.get('/', (req: express.Request, res: express.Response) => {
   res.sendFile(path.join(__dirname + '/index.html'))
 })
-app.use('/api', URLRouter)
+app.use(URLRouter)
+// http://localhost:3000/api/test
 
 const start = async () => {
   try {

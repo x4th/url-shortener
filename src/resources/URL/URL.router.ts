@@ -1,9 +1,9 @@
 import { Router } from 'express'
+import { redirect, createURL } from './URL.controllers'
 
 const router = Router()
 
-router
-  .route('/:id')
-  .get(/* TODO: add redirect */)
+router.route('/').post(createURL)
+router.route('/:id').get(redirect)
 
 export default router
