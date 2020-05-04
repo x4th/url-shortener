@@ -10,8 +10,6 @@ export function randomStringGenerator(length: number): string {
     ...new Array(26).fill(1).map((_, i) => String.fromCharCode(65 + i)),
     ...new Array(26).fill(1).map((_, i) => String.fromCharCode(97 + i)),
     ...new Array(10).fill(1).map((_, i) => String.fromCharCode(48 + i)),
-    '_',
-    '-',
   ]
 
   const r = new Array(length)

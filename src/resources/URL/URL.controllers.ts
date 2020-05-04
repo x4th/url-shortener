@@ -24,7 +24,7 @@ export const createURL = async (req: Request, res: Response) => {
 
 export const redirect = async (req: Request, res: Response) => {
   try {
-    const url = await URL.findById(req.params.id).lean().exec()
+    const url = await URL.findOne({ short: req.params.id }).lean().exec()
     if (!url) {
       res.sendStatus(404)
       return
